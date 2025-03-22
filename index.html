@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnWeb - Web Development Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: rgba(12, 36, 66, 0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 50%;
+            right: 25%;
+            top: 0;
+            border-radius: 0 0 15px 15px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a3658, #12233d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .hero.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Courses Section */
+        .courses {
+            padding: 80px 20px;
+            background: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #12233d;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .section-title.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid rgba(18, 35, 61, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(18, 35, 61, 0.15);
+        }
+
+        .course-card i {
+            font-size: 40px;
+            color: #1a3658;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .price {
+            color: #1a3658;
+            font-size: 24px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #fff;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 50px;
+            color: #1a3658;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover i {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #12233d;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        footer.active {
+            opacity: 1;
+        }
+
+        .social-icons {
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: white;
+            margin: 0 15px;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            color: #3498db;
+        }
+
+        .contact-info {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .enroll-btn {
+            background: #1a3658;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enroll-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .enroll-btn:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .enroll-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(26, 54, 88, 0.3);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            nav {
+                width: 90%;
+                right: 5%;
+                background: rgba(12, 36, 66, 0.98);
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #12233d;
+                padding: 20px;
+                text-align: center;
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .nav-links.active {
+                max-height: 500px;
+                opacity: 1;
+                border-radius: 0 0 15px 15px;
+            }
+
+            .course-grid, .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">LearnWeb</a>
+            <div class="menu-btn"><i class="fas fa-bars"></i></div>
+            <div class="nav-links">
+                <a href="#courses"><i class="fas fa-book"></i> الدورات</a>
+                <a href="#features"><i class="fas fa-star"></i> المميزات</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> عنا</a>
+                <a href="#contact"><i class="fas fa-phone"></i> اتصل بنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>Welcome to LearnWeb</h1>
+            <p>ابدأ رحلتك في تطوير المواقع مع أفضل الدورات التعليمية</p>
+            <div style="margin-top: 30px;">
+                <button class="enroll-btn">     
+                    ابدأ الآن <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="courses">
+        <h2 class="section-title"><i class="fas fa-graduation-cap"></i> دوراتنا التعليمية</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <i class="fab fa-html5"></i>
+                <h3>HTML أساسيات</h3>
+                <p>ابدأ رحلتك في تطوير الويب</p>
+                <div class="price">مجاني</div>
+                <button class="enroll-btn">سجل الآن</button>
+            </div>
+            <div class="course-card">
+                <i class="fab fa-css3-alt"></i>
+                <h3>CSS متقدم</h3>
+                <p>تصميم مواقع احترافية</p>
+                <div class="price">مجاني</div>
+                <button class="enroll-btn">سجل الآن</button>
+            </div>
+            <div class="course-card">
+                <i class="fab fa-js"></i>
+                <h3>JavaScript محترف</h3>
+                <p>احتراف البرمجة بلغة الجافاسكريبت</p>
+                <div class="price">10$</div>
+                <button class="enroll-btn">سجل الآن</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">مميزاتنا</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <i class="fas fa-rocket"></i>
+                <h3>تعلم سريع</h3>
+                <p>دورات مكثفة وبجودة عالية</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-certificate"></i>
+                <h3>شهادات معتمدة</h3>
+                <p>احصل على شهادات معترف بها</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-headset"></i>
+                <h3>دعم فني 24/7</h3>
+                <p>فريق دعم فني متاح دائما</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="contact-info">
+            <h3>عمان - الأردن</h3>
+            <p><i class="fas fa-phone"></i> 0096264000000</p>
+            <p><i class="fas fa-envelope"></i> contact@learnweb.com</p>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>© 2023 LearnWeb. جميع الحقوق محفوظة</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe elements
+        document.querySelectorAll('.hero, .section-title, .course-card, .feature-card, footer')
+            .forEach(el => observer.observe(el));
+
+        // Mobile menu
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                document.querySelector('.nav-links').classList.remove('active');
+                document.querySelector('.menu-btn').classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
